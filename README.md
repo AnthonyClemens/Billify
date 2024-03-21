@@ -1,2 +1,2 @@
 # Billify
-A financial management tool
+A financial management tool written in Java
