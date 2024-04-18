@@ -51,19 +51,22 @@ public class CMD {
 
     private static FinancialCommand addExpense(FinancialCommand data){
         Scanner input = new Scanner(System.in);
-        String type="None";
-        while(!((type.contains("Income")) || (type.contains("Expense")))){
-            System.out.print("\nWill this be an Income or Expense?");
-            type = input.nextLine();
-            if((!type.contains("Income")) || (!type.contains("Expense"))){
-                System.err.println("Please type 'Income' or 'Expense' only.");
-            }else{
-                break;
+        String type = "";
+        while(!((type.equals("income")) || (type.equals("expense")))){
+            System.out.print("\nWill this be an Income or Expense? ");
+            type = input.nextLine().toLowerCase();
+            switch(type.toLowerCase()){
+                case "income":
+                    break;
+                case "expense":
+                    break;
+                default:
+                    System.err.println("Please type 'Income' or 'Expense' only.");
             }
         }
-        System.out.print("What category is this expense? ");
+        System.out.print("What category is this "+type+"? Existing categories are: "+com.anthonyclemens.FinancialCommand.getCategories(data,type));
         String category = input.nextLine();
-        System.out.print("Who is the person creating this expense? ");
+        System.out.print("Who is the person creating this "+type+"? ");
         String person = input.nextLine();
         System.out.print("Where is this transaction taking place? ");
         String source = input.nextLine();
@@ -78,7 +81,7 @@ public class CMD {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        if(type.equals("Income")){
+        if(type.equals("income")){
             data.addIncome(new Income(category, amount, date, person, source));
         }else{
             data.addExpense(new Expense(category, amount, date, person, source));
