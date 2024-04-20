@@ -1,5 +1,6 @@
 package com.anthonyclemens;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Expense {
@@ -50,6 +51,6 @@ public class Expense {
     }
 
     public String getValues(){
-        return "\nDate: "+this.date+"\nCategory: "+this.category+"\nPerson: "+this.person+"\nAmount: "+this.amount+"\nSource: "+this.source;
+        return "\nDate: "+(new SimpleDateFormat("MM/dd/yyyy").format(this.date))+"\nCategory: "+this.category+"\nPerson: "+this.person+"\nAmount: "+this.amount+"\nSource: "+this.source;
     }
 }

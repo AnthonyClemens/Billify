@@ -1,7 +1,10 @@
 package com.anthonyclemens;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.Comparator;
 
 public class FinancialCommand {
     private ArrayList<Expense> expenseList = new ArrayList<>();
@@ -60,4 +63,13 @@ public class FinancialCommand {
     public List<Income> getIncomes(FinancialCommand financialCommand){
         return financialCommand.incomeList;
     }
+
+    //private List<Income> sortIncomes(FinancialCommand financialCommand){
+    //    List<Date> dates = null;
+    //    for(int i=0; i<financialCommand.getIncomes(financialCommand).size(); i++){
+    //        dates.add(incomeList.get(i).getDate());
+    //    }
+    //    List<Date> sorted = 
+    //
+    //}
 }

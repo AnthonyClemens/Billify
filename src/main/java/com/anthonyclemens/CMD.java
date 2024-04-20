@@ -15,15 +15,17 @@ public class CMD {
             int choice = printMenu();
             switch (choice) {
                 case 1:
-                    data=addExpense(data);
+                    data=addData(data);
                     break;
                 case 2:
+                    data=remData(data);
                     break;
                 case 3:
                     String summary = "There are "+data.numIncome(data)+" Income records, and "+data.numExpense(data)+" Expense Records.";
                     System.out.println(summary);
                     divider(summary);
-                    System.out.println("\n"+data.getExpenses(data).get(0).getValues());
+                    listData(data,"income");
+                    listData(data, "expense");
                     break;
                 case 4:
                     System.out.println("Goodbye!");
@@ -34,6 +36,51 @@ public class CMD {
             }
         }
     }
+    private static FinancialCommand remData(FinancialCommand data) {
+        if(data.numExpense(data)==0 && data.numIncome(data)==0){
+            System.out.println("There is no data to delete at this time.");
+            return data;
+        }
+        String type = askType();
+        System.out.println("Which "+type+" would you like to delete?");
+        listData(data, type);
+        int numData = getValidInt()-1;
+        try{
+            if(type.equals("income")){
+                if(data.numIncome(data)==0){
+                    System.out.println("There is no "+type+"s to delete at this time.");
+                    return data;
+                }
+                data = data.delIncome(numData);
+            }else{
+                if(data.numExpense(data)==0){
+                    System.out.println("There is no "+type+"s to delete at this time.");
+                }
+                data = data.delExpense(numData);
+            }
+            System.out.println(type+" deleted successfully.");
+        }catch(Exception e){
+            System.out.println("Could not delete "+type+", please ensure you are entering the correct number.");
+        }
+        return data;
+    }
+    private static String askType(){
+        String type="";
+        Scanner input = new Scanner(System.in);
+        while(!((type.equals("income")) || (type.equals("expense")))){
+            System.out.print("\nWill this be an Income or Expense? ");
+            type = input.nextLine().toLowerCase();
+            switch(type){
+                case "income":
+                    break;
+                case "expense":
+                    break;
+                default:
+                    System.err.println("Please type 'Income' or 'Expense' only.");
+            }
+        }
+        return type;
+    }
     private static int printMenu(){
         int selection = 0;
         Scanner input = new Scanner(System.in);
@@ -43,27 +90,29 @@ public class CMD {
             System.out.println("2 - Remove an Income/Expense");
             System.out.println("3 - View Summary");
             System.out.println("4 - Quit");
-
-            selection = input.nextInt();
+            selection = getValidInt();
         }
         return selection;
     }
 
-    private static FinancialCommand addExpense(FinancialCommand data){
+    private static int getValidInt() {
+        int selection = -1;
         Scanner input = new Scanner(System.in);
-        String type = "";
-        while(!((type.equals("income")) || (type.equals("expense")))){
-            System.out.print("\nWill this be an Income or Expense? ");
-            type = input.nextLine().toLowerCase();
-            switch(type.toLowerCase()){
-                case "income":
-                    break;
-                case "expense":
-                    break;
-                default:
-                    System.err.println("Please type 'Income' or 'Expense' only.");
+        while(true){
+            try{
+                selection = input.nextInt();
+                break;
+            }catch(Exception e){
+                System.out.println("Please enter a number! Try again!");
+                input.nextLine();
             }
         }
+        return selection;
+    }
+    private static FinancialCommand addData(FinancialCommand data){
+        Scanner input = new Scanner(System.in);
+        double amount = 0.0;
+        String type = askType();
         System.out.print("What category is this "+type+"? Existing categories are: "+com.anthonyclemens.FinancialCommand.getCategories(data,type));
         String category = input.nextLine();
         System.out.print("Who is the person creating this "+type+"? ");
@@ -71,7 +120,15 @@ public class CMD {
         System.out.print("Where is this transaction taking place? ");
         String source = input.nextLine();
         System.out.print("How much was this item(s)? ");
-        double amount = input.nextDouble();
+        while(true){
+            try{
+                amount = input.nextDouble();
+                break;
+            }catch(Exception e){
+                System.out.println("Please enter a number! Try again!");
+                input.nextLine();
+            }
+        }
         System.out.println("Please enter the date of the transaction in MM-dd-yyyy format: ");
         SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy", Locale.ENGLISH);
         String dateString = input.next();
@@ -95,5 +152,28 @@ public class CMD {
         }
         System.out.println();
         return;
+    }
+    private static void listData(FinancialCommand data,String type){
+        System.out.println("\nList of "+type+"s:");
+        int nAmount = -1;
+        if(type.equals("income")){
+            nAmount=data.numIncome(data);
+        }else{
+            nAmount=data.numExpense(data);
+        }
+        switch(nAmount){
+            case 0:
+                System.out.println("There are no "+type+"s.");
+            default:
+                if(type.equals("income")){
+                    for(int i=0; i < nAmount; i++){
+                        System.out.println("Income number "+(i+1)+":\n"+data.getIncomes(data).get(i).getValues());
+                    }
+                }else{
+                    for(int i=0; i < nAmount; i++){
+                        System.out.println("Expense number "+(i+1)+":\n"+data.getExpenses(data).get(i).getValues());
+                    }
+                }
+        }
     }
 }
