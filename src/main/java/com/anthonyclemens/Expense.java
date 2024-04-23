@@ -9,7 +9,6 @@ public class Expense {
     private String source;
     private double amount;
     private Date date;
-    private String type = "Expense";
 
     public Expense(String cat, double am, Date da, String per, String src){
         category=cat;
@@ -41,6 +40,15 @@ public class Expense {
     public double getAmount(){
         return this.amount;
     }
+
+    public String getSource(){
+        return this.source;
+    }
+
+    public String getPerson(){
+        return this.person;
+    }
+
 
     public String getType(){
         return "Expense";

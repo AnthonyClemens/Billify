@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anthonyclemens.Controller">
+   <children>
+      <Group fx:id="IncomeGroup" layoutX="594.0" layoutY="94.0">
+         <children>
+            <Button fx:id="viewPie" layoutY="46.0" mnemonicParsing="false" text="View Pie Chart" onAction="#launchPie"/>
+            <Button fx:id="calcTotal" layoutX="-1.0" layoutY="95.0" mnemonicParsing="false" onAction="#calculateTotal" text="Calculate Total" />
+            <Text layoutX="17.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:" underline="true">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <Label fx:id="total" layoutX="17.0" layoutY="236.0" text="\$0.00">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <Group layoutY="-2.8984375">
+         <children>
+            <TableView fx:id="incomeTable" layoutY="34.8984375" prefHeight="600.0" prefWidth="560.0">
+              <columns>
+                  <TableColumn fx:id="tableDate" prefWidth="112.0" text="Date" />
+                  <TableColumn fx:id="tableCat" prefWidth="112.0" text="Category" />
+                  <TableColumn fx:id="tableSrc" prefWidth="112.0" text="Source" />
+                  <TableColumn fx:id="tableAmnt" prefWidth="112.0" text="Amount" />
+                  <TableColumn fx:id="tablePer" prefWidth="112.0" text="Person" />
+              </columns>
+            </TableView>
+            <Text layoutX="236.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Incomes">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <DatePicker fx:id="incomeDate" layoutY="639.0" prefHeight="25.0" prefWidth="113.0" />
+            <TextField fx:id="incomeCat" layoutX="113.0" layoutY="639.0" prefHeight="25.0" prefWidth="112.0" />
+            <TextField fx:id="incomeSrc" layoutX="224.0" layoutY="639.0" prefHeight="25.0" prefWidth="112.0" />
+            <TextField fx:id="incomeAmnt" layoutX="336.0" layoutY="639.0" prefHeight="25.0" prefWidth="112.0" />
+            <TextField fx:id="incomePer" layoutX="448.0" layoutY="639.0" prefHeight="25.0" prefWidth="112.0" />
+            <Button fx:id="addIncome" layoutX="240.0" layoutY="664.0" mnemonicParsing="false" onAction="#addIncomes" text="Add Income" />
+         </children>
+      </Group>
+      <Group fx:id="ExpenseGroup" layoutX="720.0" layoutY="-2.8984375">
+         <children>
+            <TableView fx:id="expenseTable" layoutY="34.8984375" prefHeight="600.0" prefWidth="560.0">
+               <columns>
+                  <TableColumn fx:id="tableDateEx" prefWidth="112.0" text="Date" />
+                  <TableColumn fx:id="tableCatEx" prefWidth="112.0" text="Category" />
+                  <TableColumn fx:id="tableSrcEx" prefWidth="112.0" text="Source" />
+                  <TableColumn fx:id="tableAmntEx" prefWidth="112.0" text="Amount" />
+                  <TableColumn fx:id="tablePerEx" prefWidth="112.0" text="Person" />
+               </columns>
+            </TableView>
+            <Text layoutX="236.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expenses">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <DatePicker fx:id="expenseDate" layoutY="639.0" prefHeight="25.0" prefWidth="113.0" />
+            <Button fx:id="addExpense" layoutX="238.0" layoutY="665.0" mnemonicParsing="false" text="Add Expense" onAction="#addExpenses"/>
+            <TextField fx:id="expenseCat" layoutX="113.0" layoutY="639.0" prefHeight="25.0" prefWidth="112.0" />
+            <TextField fx:id="expenseSrc" layoutX="224.0" layoutY="639.0" prefHeight="25.0" prefWidth="112.0" />
+            <TextField fx:id="expenseAmnt" layoutX="336.0" layoutY="639.0" prefHeight="25.0" prefWidth="112.0" />
+            <TextField fx:id="expensePer" layoutX="448.0" layoutY="639.0" prefHeight="25.0" prefWidth="112.0" />
+         </children>
+      </Group>
+      <Button fx:id="removeIncome" layoutX="234.0" layoutY="687.0" mnemonicParsing="false" onAction="#removeIncomes" text="Delete Income" />
+      <Button fx:id="removeExpense" layoutX="952.0" layoutY="687.0" mnemonicParsing="false" onAction= "#removeExpenses" text="Delete Expense" />
+   </children>
+</AnchorPane>

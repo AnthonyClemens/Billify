@@ -2,10 +2,10 @@ package com.anthonyclemens;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
+
 
 public class CMD {
     public static void startCMD(){
@@ -29,8 +29,7 @@ public class CMD {
                     break;
                 case 4:
                     System.out.println("Goodbye!");
-                    System.exit(0);
-                    break;
+                    return;
                 default:
                     break;
             }
@@ -85,7 +84,7 @@ public class CMD {
         int selection = 0;
         Scanner input = new Scanner(System.in);
         while((selection<1) || (selection>4)){
-            System.out.println("\n-----------Billify-----------\n");
+            System.out.println("\n---------BillifyCMD---------\n");
             System.out.println("1 - Add an Income/Expense");
             System.out.println("2 - Remove an Income/Expense");
             System.out.println("3 - View Summary");
@@ -95,7 +94,7 @@ public class CMD {
         return selection;
     }
 
-    private static int getValidInt() {
+    public static int getValidInt() {
         int selection = -1;
         Scanner input = new Scanner(System.in);
         while(true){
@@ -113,7 +112,7 @@ public class CMD {
         Scanner input = new Scanner(System.in);
         double amount = 0.0;
         String type = askType();
-        System.out.print("What category is this "+type+"? Existing categories are: "+com.anthonyclemens.FinancialCommand.getCategories(data,type));
+        System.out.print("What category is this "+type+"? Existing categories are: "+com.anthonyclemens.FinancialCommand.getUniqueCategories(data,type));
         String category = input.nextLine();
         System.out.print("Who is the person creating this "+type+"? ");
         String person = input.nextLine();
@@ -151,7 +150,6 @@ public class CMD {
             System.out.print("-");
         }
         System.out.println();
-        return;
     }
     private static void listData(FinancialCommand data,String type){
         System.out.println("\nList of "+type+"s:");
@@ -161,19 +159,18 @@ public class CMD {
         }else{
             nAmount=data.numExpense(data);
         }
-        switch(nAmount){
-            case 0:
-                System.out.println("There are no "+type+"s.");
-            default:
-                if(type.equals("income")){
-                    for(int i=0; i < nAmount; i++){
-                        System.out.println("Income number "+(i+1)+":\n"+data.getIncomes(data).get(i).getValues());
-                    }
-                }else{
-                    for(int i=0; i < nAmount; i++){
-                        System.out.println("Expense number "+(i+1)+":\n"+data.getExpenses(data).get(i).getValues());
-                    }
+        if(nAmount==0){
+            System.out.println("There are no "+type+"s.");
+        }else{
+            if(type.equals("income")){
+                for(int i=0; i < nAmount; i++){
+                    System.out.println("\nIncome number "+(i+1)+":\n"+data.getIncomes(data).get(i).getValues());
+                }
+            }else{
+                for(int i=0; i < nAmount; i++){
+                    System.out.println("\nExpense number "+(i+1)+":\n"+data.getExpenses(data).get(i).getValues());
                 }
         }
     }
+}
 }
