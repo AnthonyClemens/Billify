@@ -20,6 +20,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Controller implements Initializable{
@@ -63,6 +64,8 @@ public class Controller implements Initializable{
     private Button calcTotal;
     @FXML
     private Label total;
+    @FXML
+    private Text messageText;
 
 
     //Expense Table
@@ -97,60 +100,73 @@ public class Controller implements Initializable{
 
 
     public void calculateTotal(){
-        try{
+        try{ //Try-catch for if values are not present or valid
             double totalAm = 0;
-            for(int i=0; i < data.getIncomes(data).size(); i++){
-                totalAm = totalAm+data.getIncomes(data).get(i).getAmount();
+            for(int i=0; i < data.numIncomes(); i++){
+                totalAm = totalAm+data.getIncomes().get(i).getAmount(); //Add up all of the Income objects
             }
-            for(int i=0; i < data.getExpenses(data).size(); i++){
-                totalAm = totalAm-data.getExpenses(data).get(i).getAmount();
+            for(int i=0; i < data.numExpenses(); i++){
+                totalAm = totalAm-data.getExpenses().get(i).getAmount(); //Subtract all of the Expense objects
             }
-            String totalStr = String.format("%,.2f", totalAm);
-            total.setText("$"+totalStr);
+            String totalStr = String.format("%,.2f", totalAm); 
+            total.setText("$"+totalStr); //Format and set the total text to the dollar amount left over
         } catch (Exception e){
+            messageText.setText("Message: Calculation error, ensure valid data is present");
             System.out.println("Cannot compute, make sure there are values present.");
         }
     }
     public void addIncomes(){
-        try{
-            LocalDate localDate = incomeDate.getValue();
+        try{ //Try-catch to make sure valid values are present in the application
+            messageText.setText("");
+            LocalDate localDate = incomeDate.getValue(); //Get the localDate input
             data.addIncome(new Income(incomeCat.getText(), Double.parseDouble(incomeAmnt.getText()), java.sql.Date.valueOf(localDate), incomePer.getText(), incomeSrc.getText()));
-            ObservableList<Income> observableList = FXCollections.observableList(data.getIncomes(data));
+            ObservableList<Income> observableList = FXCollections.observableList(data.getIncomes()); //Convert 
             incomeTable.setItems(observableList);
+            calculateTotal();
         } catch (Exception e){
+            messageText.setText("Message: Ensure Income has valid data");
             System.out.println("Fields are blank");
         }
     }
     public void removeIncomes() {
         try{
+            messageText.setText("");
             int selectedID = incomeTable.getSelectionModel().getSelectedIndex();
             incomeTable.getItems().remove(selectedID);
+            calculateTotal();
         } catch (Exception e){
+            messageText.setText("Message: No Income is selected");
             System.out.println("Nothing is selected");
         }
     }
 
     public void addExpenses(){
         try{
+            messageText.setText("");
             LocalDate localDateEx = expenseDate.getValue();
             data.addExpense(new Expense(expenseCat.getText(), Double.parseDouble(expenseAmnt.getText()), java.sql.Date.valueOf(localDateEx), expensePer.getText(), expenseSrc.getText()));
-            ObservableList<Expense> observableList = FXCollections.observableList(data.getExpenses(data));
+            ObservableList<Expense> observableList = FXCollections.observableList(data.getExpenses());
             expenseTable.setItems(observableList);
         } catch (Exception e){
+            messageText.setText("Message: Ensure Expense has valid data");
             System.out.println("Fields are blank");
         }
     }
     public void removeExpenses() {
         try{
+            messageText.setText("");
             int selectedID = expenseTable.getSelectionModel().getSelectedIndex();
             expenseTable.getItems().remove(selectedID);
+            calculateTotal();
         } catch (Exception e){
+            messageText.setText("Message: No Expense is selected");
             System.out.println("Nothing is selected");
         }
     }
 
     public void launchPie(){
         try {
+            messageText.setText("");
             FXMLLoader loader=new FXMLLoader(getClass().getResource("/PieChart.fxml"));
             Parent root = (Parent) loader.load();
 
@@ -163,6 +179,7 @@ public class Controller implements Initializable{
             stage.setScene(newScene);
             stage.show();
         } catch (IOException e) {
+            messageText.setText("Message: Failed to launch Pie Chart");
             e.printStackTrace();
         }
     }
@@ -170,12 +187,13 @@ public class Controller implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //Initialize Income Table
         tableDate.setCellValueFactory(new PropertyValueFactory<Income, Date>("date"));
         tableCat.setCellValueFactory(new PropertyValueFactory<Income, String>("category"));
         tableSrc.setCellValueFactory(new PropertyValueFactory<Income, String>("source"));
         tableAmnt.setCellValueFactory(new PropertyValueFactory<Income, Double>("amount"));
         tablePer.setCellValueFactory(new PropertyValueFactory<Income, String>("person"));
-
+        //Initialize Expense Table
         tableDateEx.setCellValueFactory(new PropertyValueFactory<Expense, Date>("date"));
         tableCatEx.setCellValueFactory(new PropertyValueFactory<Expense, String>("category"));
         tableSrcEx.setCellValueFactory(new PropertyValueFactory<Expense, String>("source"));

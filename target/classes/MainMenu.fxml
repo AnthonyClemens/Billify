@@ -15,14 +15,13 @@
    <children>
       <Group fx:id="IncomeGroup" layoutX="594.0" layoutY="94.0">
          <children>
-            <Button fx:id="viewPie" layoutY="46.0" mnemonicParsing="false" text="View Pie Chart" onAction="#launchPie"/>
-            <Button fx:id="calcTotal" layoutX="-1.0" layoutY="95.0" mnemonicParsing="false" onAction="#calculateTotal" text="Calculate Total" />
+            <Button fx:id="viewPie" layoutY="46.0" mnemonicParsing="false" onAction="#launchPie" text="View Pie Chart" />
             <Text layoutX="17.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:" underline="true">
                <font>
                   <Font size="24.0" />
                </font>
             </Text>
-            <Label fx:id="total" layoutX="17.0" layoutY="236.0" text="\$0.00">
+            <Label fx:id="total" layoutX="17.0" layoutY="238.0" text="\$0.00" textAlignment="CENTER">
                <font>
                   <Font size="24.0" />
                </font>
@@ -70,7 +69,7 @@
                </font>
             </Text>
             <DatePicker fx:id="expenseDate" layoutY="639.0" prefHeight="25.0" prefWidth="113.0" />
-            <Button fx:id="addExpense" layoutX="238.0" layoutY="665.0" mnemonicParsing="false" text="Add Expense" onAction="#addExpenses"/>
+            <Button fx:id="addExpense" layoutX="238.0" layoutY="665.0" mnemonicParsing="false" onAction="#addExpenses" text="Add Expense" />
             <TextField fx:id="expenseCat" layoutX="113.0" layoutY="639.0" prefHeight="25.0" prefWidth="112.0" />
             <TextField fx:id="expenseSrc" layoutX="224.0" layoutY="639.0" prefHeight="25.0" prefWidth="112.0" />
             <TextField fx:id="expenseAmnt" layoutX="336.0" layoutY="639.0" prefHeight="25.0" prefWidth="112.0" />
@@ -78,6 +77,11 @@
          </children>
       </Group>
       <Button fx:id="removeIncome" layoutX="234.0" layoutY="687.0" mnemonicParsing="false" onAction="#removeIncomes" text="Delete Income" />
-      <Button fx:id="removeExpense" layoutX="952.0" layoutY="687.0" mnemonicParsing="false" onAction= "#removeExpenses" text="Delete Expense" />
+      <Button fx:id="removeExpense" layoutX="952.0" layoutY="687.0" mnemonicParsing="false" onAction="#removeExpenses" text="Delete Expense" />
+      <Text fx:id="messageText" layoutX="365.0" layoutY="693.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" textAlignment="CENTER" wrappingWidth="550.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

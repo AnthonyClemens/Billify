@@ -1,12 +1,9 @@
 package com.anthonyclemens;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.Comparator;
 
 public class FinancialCommand {
     private ArrayList<Expense> expenseList = new ArrayList<>();
@@ -31,7 +28,7 @@ public class FinancialCommand {
     public static Map<String, Double> getExpenseCategoryPercentages(FinancialCommand financialCommand) {
         List<String> catList = new ArrayList<>();
         double totalAmountSpent = 0.0;
-        for (Expense expense : financialCommand.getExpenses(financialCommand)) {
+        for (Expense expense : financialCommand.getExpenses()) {
             catList.add(expense.getCategory());
             totalAmountSpent += expense.getAmount();
         }
@@ -59,48 +56,35 @@ public class FinancialCommand {
         return total;
     }
 
-    public FinancialCommand addExpense(Expense newExpense){
-        expenseList.add(newExpense);
-        return this;
+    public void addExpense(Expense newExpense){
+        this.expenseList.add(newExpense);
     }
 
-    public FinancialCommand addIncome(Income newIncome){
-        incomeList.add(newIncome);
-        return this;
+    public void addIncome(Income newIncome){
+        this.incomeList.add(newIncome);
     }
 
-    public FinancialCommand delExpense(int i){
-        expenseList.remove(i);
-        return this;
+    public void delExpense(int i){
+        this.expenseList.remove(i);
     }
 
-    public FinancialCommand delIncome(int i){
-        incomeList.remove(i);
-        return this;
+    public void delIncome(int i){
+        this.incomeList.remove(i);
     }
 
-    public int numExpense(FinancialCommand financialCommand){
-        return financialCommand.expenseList.size();
+    public int numExpenses(){
+        return this.expenseList.size();
     }
 
-    public int numIncome(FinancialCommand financialCommand){
-        return financialCommand.incomeList.size();
+    public int numIncomes(){ 
+        return this.incomeList.size();
     }
 
-    public List<Expense> getExpenses(FinancialCommand financialCommand){
-        return financialCommand.expenseList;
+    public List<Expense> getExpenses(){ //Return the Arraylist of Expense objects
+        return this.expenseList;
     }
 
-    public List<Income> getIncomes(FinancialCommand financialCommand){
-        return financialCommand.incomeList;
+    public List<Income> getIncomes(){ //Return the ArrayList of Income objects
+        return this.incomeList;
     }
-
-    //private List<Income> sortIncomes(FinancialCommand financialCommand){
-    //    List<Date> dates = null;
-    //    for(int i=0; i<financialCommand.getIncomes(financialCommand).size(); i++){
-    //        dates.add(incomeList.get(i).getDate());
-    //    }
-    //    List<Date> sorted = 
-    //
-    //}
 }

@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 
 public class CMD {
+
     public static void startCMD(){
         FinancialCommand data = new FinancialCommand();
         System.out.println("Welcome to Billify (Console)");
@@ -21,7 +22,7 @@ public class CMD {
                     data=remData(data);
                     break;
                 case 3:
-                    String summary = "There are "+data.numIncome(data)+" Income records, and "+data.numExpense(data)+" Expense Records.";
+                    String summary = "There are "+data.numIncomes()+" Income records, and "+data.numExpenses()+" Expense Records.";
                     System.out.println(summary);
                     divider(summary);
                     listData(data,"income");
@@ -35,8 +36,9 @@ public class CMD {
             }
         }
     }
+
     private static FinancialCommand remData(FinancialCommand data) {
-        if(data.numExpense(data)==0 && data.numIncome(data)==0){
+        if(data.numExpenses()==0 && data.numIncomes()==0){
             System.out.println("There is no data to delete at this time.");
             return data;
         }
@@ -46,16 +48,16 @@ public class CMD {
         int numData = getValidInt()-1;
         try{
             if(type.equals("income")){
-                if(data.numIncome(data)==0){
+                if(data.numIncomes()==0){
                     System.out.println("There is no "+type+"s to delete at this time.");
                     return data;
                 }
-                data = data.delIncome(numData);
+                data.delIncome(numData);
             }else{
-                if(data.numExpense(data)==0){
+                if(data.numExpenses()==0){
                     System.out.println("There is no "+type+"s to delete at this time.");
                 }
-                data = data.delExpense(numData);
+                data.delExpense(numData);
             }
             System.out.println(type+" deleted successfully.");
         }catch(Exception e){
@@ -63,6 +65,7 @@ public class CMD {
         }
         return data;
     }
+
     private static String askType(){
         String type="";
         Scanner input = new Scanner(System.in);
@@ -78,8 +81,10 @@ public class CMD {
                     System.err.println("Please type 'Income' or 'Expense' only.");
             }
         }
+        
         return type;
     }
+
     private static int printMenu(){
         int selection = 0;
         Scanner input = new Scanner(System.in);
@@ -91,6 +96,7 @@ public class CMD {
             System.out.println("4 - Quit");
             selection = getValidInt();
         }
+        
         return selection;
     }
 
@@ -106,6 +112,7 @@ public class CMD {
                 input.nextLine();
             }
         }
+        
         return selection;
     }
     private static FinancialCommand addData(FinancialCommand data){
@@ -142,6 +149,7 @@ public class CMD {
         }else{
             data.addExpense(new Expense(category, amount, date, person, source));
         }
+        
         return data;
     }
 
@@ -155,20 +163,20 @@ public class CMD {
         System.out.println("\nList of "+type+"s:");
         int nAmount = -1;
         if(type.equals("income")){
-            nAmount=data.numIncome(data);
+            nAmount=data.numIncomes();
         }else{
-            nAmount=data.numExpense(data);
+            nAmount=data.numExpenses();
         }
         if(nAmount==0){
             System.out.println("There are no "+type+"s.");
         }else{
             if(type.equals("income")){
                 for(int i=0; i < nAmount; i++){
-                    System.out.println("\nIncome number "+(i+1)+":\n"+data.getIncomes(data).get(i).getValues());
+                    System.out.println("\nIncome number "+(i+1)+":\n"+data.getIncomes().get(i).getValues());
                 }
             }else{
                 for(int i=0; i < nAmount; i++){
-                    System.out.println("\nExpense number "+(i+1)+":\n"+data.getExpenses(data).get(i).getValues());
+                    System.out.println("\nExpense number "+(i+1)+":\n"+data.getExpenses().get(i).getValues());
                 }
         }
     }
