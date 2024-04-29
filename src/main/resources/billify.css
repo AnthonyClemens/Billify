@@ -1,3 +1,6 @@
 .root {
     -fx-background-image: url("background.jpg");
 }
+.chart-plot-background {
+    -fx-background-color: transparent;
+}

@@ -1,5 +1,6 @@
 package com.anthonyclemens;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -20,7 +21,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class Controller implements Initializable{
@@ -57,15 +61,21 @@ public class Controller implements Initializable{
     private TextField incomePer;
 
 
-    //Middle Commands
+    //Middle Elements
+    @FXML
+    private ImageView logoImg;
     @FXML
     private Button viewPie;
-    @FXML
-    private Button calcTotal;
     @FXML
     private Label total;
     @FXML
     private Text messageText;
+    @FXML
+    private Button saveFileButton;
+    @FXML
+    private Button loadFileButton;
+    @FXML
+    private Button viewLine;
 
 
     //Expense Table
@@ -108,7 +118,7 @@ public class Controller implements Initializable{
             for(int i=0; i < data.numExpenses(); i++){
                 totalAm = totalAm-data.getExpenses().get(i).getAmount(); //Subtract all of the Expense objects
             }
-            String totalStr = String.format("%,.2f", totalAm); 
+            String totalStr = String.format("%,.2f", totalAm);
             total.setText("$"+totalStr); //Format and set the total text to the dollar amount left over
         } catch (Exception e){
             messageText.setText("Message: Calculation error, ensure valid data is present");
@@ -147,11 +157,13 @@ public class Controller implements Initializable{
             data.addExpense(new Expense(expenseCat.getText(), Double.parseDouble(expenseAmnt.getText()), java.sql.Date.valueOf(localDateEx), expensePer.getText(), expenseSrc.getText()));
             ObservableList<Expense> observableList = FXCollections.observableList(data.getExpenses());
             expenseTable.setItems(observableList);
+            calculateTotal();
         } catch (Exception e){
             messageText.setText("Message: Ensure Expense has valid data");
             System.out.println("Fields are blank");
         }
     }
+
     public void removeExpenses() {
         try{
             messageText.setText("");
@@ -174,6 +186,7 @@ public class Controller implements Initializable{
             secController.makePie(data);
             Stage stage=new Stage();
             stage.setTitle("Percentage of spending by Category");
+            stage.setResizable(false);
             Scene newScene = new Scene(root);
             newScene.getStylesheets().add(BillifyFX.class.getResource("/billify.css").toExternalForm());
             stage.setScene(newScene);
@@ -182,6 +195,78 @@ public class Controller implements Initializable{
             messageText.setText("Message: Failed to launch Pie Chart");
             e.printStackTrace();
         }
+    }
+
+    public void launchLine(){
+        try {
+            messageText.setText("");
+            FXMLLoader loader=new FXMLLoader(getClass().getResource("/LineChart.fxml"));
+            Parent root = (Parent) loader.load();
+
+            LineController thirdController=loader.getController();
+            thirdController.makeLine(data);
+            Stage stage=new Stage();
+            stage.setTitle("Money Over Time");
+            stage.setResizable(false);
+            Scene newScene = new Scene(root);
+            newScene.getStylesheets().add(BillifyFX.class.getResource("/billify.css").toExternalForm());
+            stage.setScene(newScene);
+            stage.show();
+        } catch (IOException e) {
+            messageText.setText("Message: Failed to launch Line Chart");
+            e.printStackTrace();
+        }
+    }
+
+    public void saveFile() {
+        messageText.setText("");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select CSV File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+
+        // Show the file dialog and get the selected file
+        File selectedFile = fileChooser.showSaveDialog(saveFileButton.getScene().getWindow());
+
+        if (selectedFile != null) {
+            String filePath = selectedFile.getAbsolutePath();
+            //System.out.println("Selected file path: " + filePath); //Debug Code
+            String result = CSVAdapter.exportToCSV(data.getIncomes(), data.getExpenses(), total.getText(), filePath);
+            System.out.println(result);
+            messageText.setText(result);
+        } else {
+            System.out.println("No file selected.");
+            messageText.setText("Message: No file selected.");
+        }
+    }
+
+    public void loadFile() {
+        messageText.setText("");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select CSV File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+
+        // Show the file dialog and get the selected file
+        File selectedFile = fileChooser.showOpenDialog(loadFileButton.getScene().getWindow());
+
+        if (selectedFile != null) {
+            String filePath = selectedFile.getAbsolutePath();
+            //System.out.println("Selected file path: " + filePath); //Debug Code
+            data = CSVAdapter.loadFromCSV(filePath);
+            System.out.println("File loaded successfully.");
+            messageText.setText("Message: File loaded successfully.");
+            refreshTables();
+        } else {
+            System.out.println("Failed to load file.");
+            messageText.setText("Message: Failed to load file.");
+        }
+    }
+
+    public void refreshTables(){
+        ObservableList<Income> incomeList = FXCollections.observableList(data.getIncomes());
+        incomeTable.setItems(incomeList);
+        ObservableList<Expense> expenseList = FXCollections.observableList(data.getExpenses());
+        expenseTable.setItems(expenseList);
+        calculateTotal();
     }
 
 
@@ -199,5 +284,8 @@ public class Controller implements Initializable{
         tableSrcEx.setCellValueFactory(new PropertyValueFactory<Expense, String>("source"));
         tableAmntEx.setCellValueFactory(new PropertyValueFactory<Expense, Double>("amount"));
         tablePerEx.setCellValueFactory(new PropertyValueFactory<Expense, String>("person"));
+        File file = new File("/icon.png");
+        Image image = new Image(file.toURI().toString());
+        logoImg.setImage(image);
     }
 }

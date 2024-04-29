@@ -1,6 +1,7 @@
 package com.anthonyclemens;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,12 +36,12 @@ public class FinancialCommand {
         if(totalAmountSpent==0){
             return new HashMap<>();
         }
-        System.out.println("Total spent:"+totalAmountSpent);
+        //System.out.println("Total spent:"+totalAmountSpent); //Debug Code
         Map<String, Double> categoryPercentages = new HashMap<>();
         for (String category : catList) {
             double amount = getCategoryCost(financialCommand, category);
             double percentage = amount/totalAmountSpent;
-            System.out.println(category+" "+percentage);
+            //System.out.println(category+" "+percentage); //Debug Code
             categoryPercentages.put(category, percentage);
         }
         return categoryPercentages;
@@ -76,7 +77,7 @@ public class FinancialCommand {
         return this.expenseList.size();
     }
 
-    public int numIncomes(){ 
+    public int numIncomes(){
         return this.incomeList.size();
     }
 
@@ -86,5 +87,24 @@ public class FinancialCommand {
 
     public List<Income> getIncomes(){ //Return the ArrayList of Income objects
         return this.incomeList;
+    }
+
+    public double getIncomeDay(Date day){
+        double total = 0.0;
+        for(int i=0; i<this.incomeList.size(); i++){
+            if(day.equals(this.incomeList.get(i).getDate())){
+                total=total+this.incomeList.get(i).getAmount();
+            }
+        }
+        return total;
+    }
+    public double getExpenseDay(Date day){
+        double total = 0.0;
+        for(int i=0; i<this.expenseList.size(); i++){
+            if(day.equals(this.expenseList.get(i).getDate())){
+                total=total+this.expenseList.get(i).getAmount();
+            }
+        }
+        return total;
     }
 }

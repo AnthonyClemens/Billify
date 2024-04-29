@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -15,17 +16,10 @@
    <children>
       <Group fx:id="IncomeGroup" layoutX="594.0" layoutY="94.0">
          <children>
-            <Button fx:id="viewPie" layoutY="46.0" mnemonicParsing="false" onAction="#launchPie" text="View Pie Chart" />
-            <Text layoutX="17.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:" underline="true">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Text>
-            <Label fx:id="total" layoutX="17.0" layoutY="238.0" text="\$0.00" textAlignment="CENTER">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
+            <Button fx:id="viewPie" layoutX="-27.0" layoutY="48.0" mnemonicParsing="false" onAction="#launchPie" text="View Expenses Pie Chart" />
+            <Button fx:id="saveFileButton" layoutX="-1.0" layoutY="99.0" mnemonicParsing="false" onAction="#saveFile" text="Export to .CSV" />
+            <Button fx:id="loadFileButton" layoutX="-5.0" layoutY="148.0" mnemonicParsing="false" onAction="#loadFile" text="Load from .CSV" />
+            <Button fx:id="viewLine" layoutX="-23.0" layoutY="2.0" mnemonicParsing="false" onAction="#launchLine" text="View Money over Time" />
          </children>
       </Group>
       <Group layoutY="-2.8984375">
@@ -49,7 +43,7 @@
             <TextField fx:id="incomeSrc" layoutX="224.0" layoutY="639.0" prefHeight="25.0" prefWidth="112.0" />
             <TextField fx:id="incomeAmnt" layoutX="336.0" layoutY="639.0" prefHeight="25.0" prefWidth="112.0" />
             <TextField fx:id="incomePer" layoutX="448.0" layoutY="639.0" prefHeight="25.0" prefWidth="112.0" />
-            <Button fx:id="addIncome" layoutX="240.0" layoutY="664.0" mnemonicParsing="false" onAction="#addIncomes" text="Add Income" />
+            <Button fx:id="addIncome" layoutX="240.0" layoutY="665.0" mnemonicParsing="false" onAction="#addIncomes" text="Add Income" />
          </children>
       </Group>
       <Group fx:id="ExpenseGroup" layoutX="720.0" layoutY="-2.8984375">
@@ -76,12 +70,23 @@
             <TextField fx:id="expensePer" layoutX="448.0" layoutY="639.0" prefHeight="25.0" prefWidth="112.0" />
          </children>
       </Group>
-      <Button fx:id="removeIncome" layoutX="234.0" layoutY="687.0" mnemonicParsing="false" onAction="#removeIncomes" text="Delete Income" />
-      <Button fx:id="removeExpense" layoutX="952.0" layoutY="687.0" mnemonicParsing="false" onAction="#removeExpenses" text="Delete Expense" />
+      <Button fx:id="removeIncome" layoutX="234.0" layoutY="694.0" mnemonicParsing="false" onAction="#removeIncomes" text="Delete Income" />
+      <Button fx:id="removeExpense" layoutX="952.0" layoutY="694.0" mnemonicParsing="false" onAction="#removeExpenses" text="Delete Expense" />
       <Text fx:id="messageText" layoutX="365.0" layoutY="693.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" textAlignment="CENTER" wrappingWidth="550.0">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
+      <Text layoutX="611.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:" underline="true">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Label fx:id="total" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="557.0" layoutY="382.0" maxHeight="128.0" maxWidth="164.0" prefHeight="35.0" prefWidth="164.0" text="\$0.00">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="logoImg" fitHeight="64.0" fitWidth="64.0" layoutX="607.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
