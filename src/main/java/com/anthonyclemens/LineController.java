@@ -41,6 +41,7 @@ public class LineController{
 
     private void updateChart(FinancialCommand data) {
         // Get selected month and year
+        lineChart.getData().clear();
         String selectedMonth = monthComboBox.getValue();
         int selectedYear = yearComboBox.getValue();
 
