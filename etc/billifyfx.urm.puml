@@ -1,0 +1,138 @@
+@startuml
+package com.anthonyclemens {
+  class CMD {
+    + CMD()
+    - addData(data : FinancialCommand) : FinancialCommand {static}
+    - askType() : String {static}
+    - divider(text : String) {static}
+    + getValidInt() : int {static}
+    - listData(data : FinancialCommand, type : String) {static}
+    - printMenu() : int {static}
+    - remData(data : FinancialCommand) : FinancialCommand {static}
+    + startCMD() {static}
+  }
+  class CSVAdapter {
+    + CSVAdapter()
+    + exportToCSV(incomeData : List<Income>, expenseData : List<Expense>, total : String, filePath : String) : String {static}
+    + loadFromCSV(filePath : String) : FinancialCommand {static}
+    - parseExpenseLine(line : String) : Expense {static}
+    - parseIncomeLine(line : String) : Income {static}
+  }
+  class Controller {
+    - addExpense : Button
+    - addIncome : Button
+    - addPaycheckB : Button
+    ~ data : FinancialCommand
+    - expenseAmnt : TextField
+    - expenseCat : TextField
+    - expenseDate : DatePicker
+    - expensePer : TextField
+    - expenseSrc : TextField
+    - expenseTable : TableView<Expense>
+    - incomeAmnt : TextField
+    - incomeCat : TextField
+    - incomeDate : DatePicker
+    - incomePer : TextField
+    - incomeSrc : TextField
+    - incomeTable : TableView<Income>
+    - loadFileButton : Button
+    - logoImg : ImageView
+    - messageText : Text
+    - payHourly : TextField
+    - payHours : TextField
+    - removeExpense : Button
+    - removeIncome : Button
+    - saveFileButton : Button
+    - tableAmnt : TableColumn<Income, Double>
+    - tableAmntEx : TableColumn<Expense, Double>
+    - tableCat : TableColumn<Income, String>
+    - tableCatEx : TableColumn<Expense, String>
+    - tableDate : TableColumn<Income, Date>
+    - tableDateEx : TableColumn<Expense, Date>
+    - tablePer : TableColumn<Income, String>
+    - tablePerEx : TableColumn<Expense, String>
+    - tableSrc : TableColumn<Income, String>
+    - tableSrcEx : TableColumn<Expense, String>
+    - total : Label
+    - viewLine : Button
+    - viewPie : Button
+    + Controller()
+    + addExpenses()
+    + addIncomes()
+    + addPay()
+    + calculateTotal()
+    + initialize(location : URL, resources : ResourceBundle)
+    + launchLine()
+    + launchPie()
+    + loadFile()
+    + refreshTables()
+    + removeExpenses()
+    + removeIncomes()
+    + saveFile()
+  }
+  class Expense {
+    - amount : double
+    - category : String
+    - date : Date
+    - person : String
+    - source : String
+    + Expense(cat : String, am : double, da : Date, per : String, src : String)
+    + getAmount() : double
+    + getCategory() : String
+    + getDate() : Date
+    + getPerson() : String
+    + getSource() : String
+    + getType() : String
+    + getValues() : String
+    + setAmount(amount : double) : Expense
+    + setCategory(category : String) : Expense
+    + setDate(date : Date) : Expense
+  }
+  class FinancialCommand {
+    - expenseList : ArrayList<Expense>
+    - incomeList : ArrayList<Income>
+    + FinancialCommand()
+    + addExpense(newExpense : Expense)
+    + addIncome(newIncome : Income)
+    + delExpense(i : int)
+    + delIncome(i : int)
+    - getCategoryCost(financialCommand : FinancialCommand, category : String) : double {static}
+    + getExpenseCategoryPercentages(financialCommand : FinancialCommand) : Map<String, Double> {static}
+    + getExpenseDay(day : Date) : double
+    + getExpenses() : List<Expense>
+    + getIncomeDay(day : Date) : double
+    + getIncomes() : List<Income>
+    + getUniqueCategories(financialCommand : FinancialCommand, type : String) : List<String> {static}
+    + numExpenses() : int
+    + numIncomes() : int
+  }
+  class Income {
+    + Income(cat : String, am : double, da : Date, per : String, src : String)
+    + getType() : String
+  }
+  class LineController {
+    - lineChart : LineChart<Number, Number>
+    - monthComboBox : ComboBox<String>
+    - months : ObservableList<String>
+    - yearComboBox : ComboBox<Integer>
+    + LineController()
+    + makeLine(data : FinancialCommand)
+    - updateChart(data : FinancialCommand)
+  }
+  class Main {
+    + Main()
+    + main(args : String[]) {static}
+  }
+  class PieController {
+    - percentageLabel : Label
+    - pieChart : PieChart
+    + PieController()
+    + makePie(data : FinancialCommand)
+    - showPercentageLabel(x : double, y : double, text : String)
+  }
+}
+FinancialCommand -->  "-expenseList" Expense
+FinancialCommand -->  "-incomeList" Income
+Controller -->  "-data" FinancialCommand
+Income --|> Expense 
+@enduml

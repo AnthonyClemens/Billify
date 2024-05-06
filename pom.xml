@@ -130,7 +130,7 @@
         </packages>
         <includeMainDirectory>true</includeMainDirectory>
         <includeTestDirectory>false</includeTestDirectory>
-        <presenter>graphviz</presenter>
+        <presenter>puml</presenter>
       </configuration>
       <executions>
         <execution>
