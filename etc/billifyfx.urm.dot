@@ -3,15 +3,15 @@ digraph domain {
   node [ shape=record ];
   subgraph cluster_0 {
     label = "com.anthonyclemens";
-    CMD [ label = "{CMD | + addData(data : FinancialCommand) : FinancialCommand\l+ askType() : String\l+ divider(text : String)\l+ getValidInt() : int\l+ listData(data : FinancialCommand, type : String)\l+ printMenu() : int\l+ remData(data : FinancialCommand) : FinancialCommand\l+ startCMD()\l}" ] 
-    CSVAdapter [ label = "{CSVAdapter | + exportToCSV(incomeData : List<Income>, expenseData : List<Expense>, total : String, filePath : String) : String\l+ loadFromCSV(filePath : String) : FinancialCommand\l+ parseExpenseLine(line : String) : Expense\l+ parseIncomeLine(line : String) : Income\l}" ] 
-    Controller [ label = "{Controller | + addExpenses()\l+ addIncomes()\l+ addPay()\l+ calculateTotal()\l+ initialize(location : URL, resources : ResourceBundle)\l+ launchLine()\l+ launchPie()\l+ loadFile()\l+ refreshTables()\l+ removeExpenses()\l+ removeIncomes()\l+ saveFile()\l}" ] 
-    Expense [ label = "{Expense | + getAmount() : double\l+ getCategory() : String\l+ getDate() : Date\l+ getPerson() : String\l+ getSource() : String\l+ getType() : String\l+ getValues() : String\l+ setAmount(amount : double) : Expense\l+ setCategory(category : String) : Expense\l+ setDate(date : Date) : Expense\l}" ] 
-    FinancialCommand [ label = "{FinancialCommand | + addExpense(newExpense : Expense)\l+ addIncome(newIncome : Income)\l+ addPaycheck(cat : String, da : Date, per : String, src : String, hours : double, pay : double)\l+ delExpense(i : int)\l+ delIncome(i : int)\l+ getCategoryCost(financialCommand : FinancialCommand, category : String) : double\l+ getExpenseCategoryPercentages(financialCommand : FinancialCommand) : Map<String, Double>\l+ getExpenseDay(day : Date) : double\l+ getExpenses() : List<Expense>\l+ getIncomeDay(day : Date) : double\l+ getIncomes() : List<Income>\l+ getUniqueCategories(financialCommand : FinancialCommand, type : String) : List<String>\l+ numExpenses() : int\l+ numIncomes() : int\l}" ] 
-    Income [ label = "{Income | + getType() : String\l}" ] 
-    LineController [ label = "{LineController | + makeLine(data : FinancialCommand)\l+ updateChart(data : FinancialCommand)\l}" ] 
-    Main [ label = "{Main | + main(args : String[])\l}" ] 
-    PieController [ label = "{PieController | + makePie(data : FinancialCommand)\l+ showPercentageLabel(x : double, y : double, text : String)\l}" ] 
+    CMD [ label = "{CMD | + addData(data : FinancialCommand) : FinancialCommand\l+ askType() : String\l+ divider(text : String)\l+ getValidInt() : int\l+ listData(data : FinancialCommand, type : String)\l+ printMenu() : int\l+ remData(data : FinancialCommand) : FinancialCommand\l+ startCMD()\l}" ]
+    CSVAdapter [ label = "{CSVAdapter | + exportToCSV(incomeData : List<Income>, expenseData : List<Expense>, total : String, filePath : String) : String\l+ loadFromCSV(filePath : String) : FinancialCommand\l+ parseExpenseLine(line : String) : Expense\l+ parseIncomeLine(line : String) : Income\l}" ]
+    Controller [ label = "{Controller | + addExpenses()\l+ addIncomes()\l+ addPay()\l+ calculateTotal()\l+ initialize(location : URL, resources : ResourceBundle)\l+ launchLine()\l+ launchPie()\l+ loadFile()\l+ refreshTables()\l+ removeExpenses()\l+ removeIncomes()\l+ saveFile()\l}" ]
+    Expense [ label = "{Expense | + getAmount() : double\l+ getCategory() : String\l+ getDate() : Date\l+ getPerson() : String\l+ getSource() : String\l+ getType() : String\l+ getValues() : String\l+ setAmount(amount : double) : Expense\l+ setCategory(category : String) : Expense\l+ setDate(date : Date) : Expense\l}" ]
+    FinancialCommand [ label = "{FinancialCommand | + addExpense(newExpense : Expense)\l+ addIncome(newIncome : Income)\l+ delExpense(i : int)\l+ delIncome(i : int)\l+ getCategoryCost(financialCommand : FinancialCommand, category : String) : double\l+ getExpenseCategoryPercentages(financialCommand : FinancialCommand) : Map<String, Double>\l+ getExpenseDay(day : Date) : double\l+ getExpenses() : List<Expense>\l+ getIncomeDay(day : Date) : double\l+ getIncomes() : List<Income>\l+ getUniqueCategories(financialCommand : FinancialCommand, type : String) : List<String>\l+ numExpenses() : int\l+ numIncomes() : int\l}" ]
+    Income [ label = "{Income | + getType() : String\l}" ]
+    LineController [ label = "{LineController | + makeLine(data : FinancialCommand)\l+ updateChart(data : FinancialCommand)\l}" ]
+    Main [ label = "{Main | + main(args : String[])\l}" ]
+    PieController [ label = "{PieController | + makePie(data : FinancialCommand)\l+ showPercentageLabel(x : double, y : double, text : String)\l}" ]
   }
   FinancialCommand -> Expense [ dir=back arrowtail=odiamond color=slategray];
   FinancialCommand -> Income [ dir=back arrowtail=odiamond color=slategray];
