@@ -81,7 +81,6 @@ public class CMD {
                     System.err.println("Please type 'Income' or 'Expense' only.");
             }
         }
-        
         return type;
     }
 
@@ -96,7 +95,6 @@ public class CMD {
             System.out.println("4 - Quit");
             selection = getValidInt();
         }
-        
         return selection;
     }
 
@@ -112,7 +110,6 @@ public class CMD {
                 input.nextLine();
             }
         }
-        
         return selection;
     }
     private static FinancialCommand addData(FinancialCommand data){
@@ -149,7 +146,6 @@ public class CMD {
         }else{
             data.addExpense(new Expense(category, amount, date, person, source));
         }
-        
         return data;
     }
 

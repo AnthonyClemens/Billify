@@ -77,6 +77,13 @@ public class Controller implements Initializable{
     @FXML
     private Button viewLine;
 
+    @FXML
+    private Button addPaycheckB;
+    @FXML
+    private TextField payHourly;
+    @FXML
+    private TextField payHours;
+
 
     //Expense Table
     @FXML
@@ -138,6 +145,44 @@ public class Controller implements Initializable{
             System.out.println("Fields are blank");
         }
     }
+    public void addPay(){
+        try{ //Try-catch to make sure valid values are present in the application
+            messageText.setText("");
+            double pay = Double.parseDouble(payHourly.getText());
+            double hours = Double.parseDouble(payHours.getText());
+            double totalPay;
+
+            if(hours>0&&hours<=40){
+                totalPay = pay*hours;
+            }else{
+                totalPay = (pay*40)+(1.5*(pay*(hours-40)));
+            }
+
+            if(pay>0&&pay<=22.67){
+                totalPay = totalPay * .88;
+            } else if(pay>22.67&&pay<=48.33){
+                totalPay = totalPay * .78;
+            } else if(pay>48.33&&pay<=92.28){
+                totalPay = totalPay * .76;
+            } else if(pay>92.28&&pay<=117.18){
+                totalPay = totalPay * .68;
+            } else if(pay>117.18&&pay<=292.96){
+                totalPay = totalPay * .65;
+            } else if(pay>292.96){
+                totalPay = totalPay * .37;
+            } else{
+                totalPay = 0.0;
+            }
+            totalPay=Math.floor(totalPay * 100) / 100;
+            //System.out.println(pay+" an hour for "+hours+" hours, equalling "+totalPay);
+            incomeAmnt.setText(Double.toString(totalPay));
+            incomeCat.setText("Paycheck");
+        } catch (Exception e){
+            messageText.setText("Message: Ensure Income has valid data");
+            System.out.println("Fields are blank");
+        }
+    }
+
     public void removeIncomes() {
         try{
             messageText.setText("");

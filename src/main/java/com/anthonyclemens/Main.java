@@ -1,6 +1,6 @@
 package com.anthonyclemens;
 
-import java.util.Scanner;
+//import java.util.Scanner;
 
 import javafx.application.Application;
 
@@ -8,7 +8,9 @@ public class Main
 {
     public static void main( String[] args )
     {
-        while(true){
+        Application.launch(BillifyFX.class,args);
+    }
+        /*while(true){
         switch(printMenu()){
             case 1:
                 CMD.startCMD(); //Launch the commandline version
@@ -39,4 +41,5 @@ public class Main
         }
         return selection; //Return the user selection
     }
+    */
 }

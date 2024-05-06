@@ -77,16 +77,33 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <Text layoutX="611.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:" underline="true">
+      <Text layoutX="611.0" layoutY="312.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:" underline="true">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
-      <Label fx:id="total" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="557.0" layoutY="382.0" maxHeight="128.0" maxWidth="164.0" prefHeight="35.0" prefWidth="164.0" text="\$0.00">
+      <Label fx:id="total" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="557.0" layoutY="325.0" maxHeight="128.0" maxWidth="164.0" prefHeight="35.0" prefWidth="164.0" text="\$0.00">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
       <ImageView fx:id="logoImg" fitHeight="64.0" fitWidth="64.0" layoutX="607.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      <Group layoutX="567.0" layoutY="427.734375">
+         <children>
+            <Text layoutX="4.0" layoutY="-11.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estimated Paycheck">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <TextField fx:id="payHourly" layoutX="-1.0" layoutY="4.0" prefHeight="25.0" prefWidth="64.0" />
+            <TextField fx:id="payHours" layoutX="83.0" layoutY="4.0" prefHeight="25.0" prefWidth="64.0" />
+            <Text layoutX="7.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pay               Hours">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Button fx:id="addPaycheckB" layoutX="28.0" layoutY="66.0" mnemonicParsing="false" onAction="#addPay" text="Add Paycheck" />
+         </children>
+      </Group>
    </children>
 </AnchorPane>

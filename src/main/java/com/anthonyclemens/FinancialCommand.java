@@ -107,4 +107,27 @@ public class FinancialCommand {
         }
         return total;
     }
+    public void addPaycheck(String cat, Date da, String per, String src, double hours, double pay){
+        double totalPay;
+        if(hours<=40){
+            totalPay = pay*hours;
+        }else{
+            totalPay = (pay*40)+(1.5*(pay*(hours-40)));
+        }
+        if(pay<=22.67){
+            totalPay = totalPay * .88;
+        } else if(pay>22.67&&pay<=48.33){
+            totalPay = totalPay * .78;
+        } else if(pay>48.33&&pay<=92.28){
+            totalPay = totalPay * .76;
+        } else if(pay>92.28&&pay<=117.18){
+            totalPay = totalPay * .68;
+        } else if(pay>117.18&&pay<=292.96){
+            totalPay = totalPay * .65;
+        } else if(pay>292.96){
+            totalPay = totalPay * .37;
+        } else{
+            totalPay = 0.0;
+        }
+    }
 }

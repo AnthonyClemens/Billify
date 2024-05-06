@@ -48,7 +48,7 @@ public class CSVAdapter {
             boolean isExpenseSection = false;
 
             while ((line = reader.readLine()) != null) {
-                if(line.contains("Exported")){
+                if(line.contains("Total:")){
                     isExpenseSection=false;
                     isIncomeSection=false;
                     break;
